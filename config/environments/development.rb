@@ -51,4 +51,8 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  config.x.alexa.skill_ids = [
+    "amzn1.ask.skill.cd8dc118-fa87-4ddb-a636-6ef67e55074a"
+  ]
 end
