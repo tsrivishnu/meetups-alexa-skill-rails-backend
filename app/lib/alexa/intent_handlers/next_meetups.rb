@@ -2,15 +2,18 @@ module Alexa
   module IntentHandlers
     class NextMeetups < Alexa::IntentHandlers::Base
       def handle
-        if slots["Type"].value.nil? || slots["Type"].bad_match?
-          response.elicit_slot!("Type")
+        if slots["Topic"].value.nil? || slots["Topic"].bad_match?
+          response.elicit_slot!("Topic")
         end
         response
       end
 
+
+
+      # Methods to fetch meetups JSON
       def meetups
         @meetups ||= begin
-                       uri = URI("https://api.meetup.com/#{urlname_for(slots["Type"].value)}/events")
+                       uri = URI("https://api.meetup.com/#{urlname_for(slots["Topic"].value)}/events")
                        resp = Net::HTTP.get(uri)
                        JSON.parse(resp).first(2)
                      end
