@@ -1,0 +1,9 @@
+<% intent.meetups.each do |meetup| %>
+  <%= meetup["name"] %>
+  <% if meetup["venue"].present? %>
+    At: <%= meetup["venue"]["name"] %>
+  <% end %>
+  On: <%= meetup["local_date"] %>
+
+
+<% end %>

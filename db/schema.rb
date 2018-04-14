@@ -1,0 +1,30 @@
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
+#
+# Note that this schema.rb definition is the authoritative source for your
+# database schema. If you need to create the application database on another
+# system, you should be using db:schema:load, not running all the migrations
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# you'll amass, the slower it'll run and the greater likelihood for issues).
+#
+# It's strongly recommended that you check this file into your version control system.
+
+ActiveRecord::Schema.define(version: 20180220213135) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "alexa_usages", id: :serial, force: :cascade do |t|
+    t.integer "alexa_user_id"
+    t.string "intent_name"
+    t.integer "count", default: 0
+  end
+
+  create_table "alexa_users", id: :serial, force: :cascade do |t|
+    t.string "amazon_id"
+    t.index ["amazon_id"], name: "index_alexa_users_on_amazon_id"
+  end
+
+  add_foreign_key "alexa_usages", "alexa_users"
+end

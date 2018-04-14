@@ -1,0 +1,21 @@
+<speak>
+  <s>Here are the next 2 meetups.</s>
+
+  <% intent.meetups.each do |meetup| %>
+    <s>
+      <%= meetup["name"] %>
+      <break time="0.5s"/>
+      is happening
+
+      <% if meetup["venue"].present? %>
+        at <%= meetup["venue"]["name"] %>
+      <break time="0.5s"/>
+      <% end %>
+
+      on
+      <say-as interpret-as="date" format="ymd">
+        <%= meetup["local_date"] %>
+      </say-as>
+    </s>
+  <% end %>
+</speak>
