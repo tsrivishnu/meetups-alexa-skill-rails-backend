@@ -12,19 +12,15 @@
 
 ActiveRecord::Schema.define(version: 20180220213135) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
-  create_table "alexa_usages", id: :serial, force: :cascade do |t|
+  create_table "alexa_usages", force: :cascade do |t|
     t.integer "alexa_user_id"
     t.string "intent_name"
     t.integer "count", default: 0
   end
 
-  create_table "alexa_users", id: :serial, force: :cascade do |t|
+  create_table "alexa_users", force: :cascade do |t|
     t.string "amazon_id"
     t.index ["amazon_id"], name: "index_alexa_users_on_amazon_id"
   end
 
-  add_foreign_key "alexa_usages", "alexa_users"
 end
