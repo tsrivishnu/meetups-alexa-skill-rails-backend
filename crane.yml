@@ -1,0 +1,38 @@
+prefix: false
+services:
+  ngrok:
+    image: "wernight/ngrok"
+    net: "alexa-dev"
+    cmd: "ngrok http app.alexa-dev:3000"
+    interactive: true
+    tty: true
+  app:
+    image: "registry.experteer.com/experteer/docker-pjpp:2.4.3_20180320"
+    requires:
+      - "postgres"
+    net: "alexa-dev"
+    hostname: "app"
+    dns:
+      - "192.168.100.30"
+      - "8.8.8.8"
+    env:
+      - "BUNDLE_PATH=/app/.bundle"
+    volume: [".:/app", "../local-gems:/local-gems"]
+    share-ssh-socket: true
+    rm: true
+    tty: true
+    interactive: true
+    workdir: "/app"
+    cmd: "bundle exec rails s"
+  postgres:
+    image: "registry.experteer.com/experteer/docker-postgres:9.4.4_20160209"
+    net: "dev"
+    hostname: "postgres"
+    volume:
+      - "$HOME/.psqlrc:/home/postgres/.psqlrc"
+      - "$HOME/.psql_history:/home/postgres/.psql_history"
+    detach: true
+
+networks:
+  alexa-dev:
+
